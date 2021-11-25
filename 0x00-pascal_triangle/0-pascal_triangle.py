@@ -1,7 +1,7 @@
 #!/usr/bin/python3
 
 """
-	pascals triangle
+    pascals triangle
 """
 
 
