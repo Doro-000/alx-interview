@@ -1,4 +1,14 @@
+#!/usr/bin/python3
+
+"""
+	pascals triangle
+"""
+
 def pascal_triangle(n):
+	"""
+		implementation of pascals triangle
+		returns a list of lists representing pascals triangle
+	"""
 	if (n <= 0):
 		return []
 	triangle  = [[1]]
