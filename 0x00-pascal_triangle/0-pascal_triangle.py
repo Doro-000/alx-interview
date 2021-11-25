@@ -1,13 +1,16 @@
 #!/usr/bin/python3
 
 """
+<<<<<<< HEAD
     pascals triangle
+=======
+	implementation of pascals triangle
+>>>>>>> 1e2032e51b4b42180a5d31b798d9fac49898b215
 """
 
 
 def pascal_triangle(n):
     """
-            implementation of pascals triangle
             returns a list of lists representing pascals triangle
     """
     if (n <= 0):
