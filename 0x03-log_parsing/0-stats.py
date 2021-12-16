@@ -7,7 +7,7 @@ import sys
 import re
 
 regex = re.compile(
-    r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} - \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d+\] "GET /projects/260 HTTP/1.1" (\d{3}) (\d+)')
+    r'\d{1,3}\.\d{1,3}\.\d{1,3}\.\d{1,3} - \[\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}.\d+\] "GET /projects/260 HTTP/1.1" (\d{3}) (\d+)')  # nopep8
 
 
 def log_parse() -> None:
@@ -18,8 +18,8 @@ def log_parse() -> None:
     log: dict = {}
     log["file_size"] = 0
     log["code_frequency"] = {
-    str(code): 0 for code in [
-        200, 301, 400, 401, 403, 404, 405, 500]}
+        str(code): 0 for code in [
+            200, 301, 400, 401, 403, 404, 405, 500]}
     try:
         for line in sys.stdin:
             match = regex.fullmatch(line.strip())
@@ -48,6 +48,7 @@ def output(log: dict) -> None:
     for code in sorted(log["code_frequency"]):
         if log["code_frequency"][code]:
             print("{}: {}".format(code, log["code_frequency"][code]))
+
 
 if __name__ == "__main__":
     log_parse()
