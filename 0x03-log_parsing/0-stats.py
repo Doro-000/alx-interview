@@ -5,7 +5,6 @@ log parsing
 
 import sys
 import re
-import signal
 
 
 def output(log: dict) -> None:
