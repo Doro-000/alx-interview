@@ -14,8 +14,8 @@ def log_parse() -> None:
     """
     parses a log file
     """
-    line_count: int = 0
-    log: dict = {}
+    line_count = 0
+    log = {}
     log["file_size"] = 0
     log["code_frequency"] = {
         str(code): 0 for code in [
