@@ -46,5 +46,5 @@ if __name__ == "__main__":
 
                 if (line_count % 10 == 0):
                     output(log)
-    except Exception:
+    finally:
         output(log)
