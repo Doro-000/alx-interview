@@ -48,5 +48,5 @@ def validUTF8(data):
             except IndexError:
                 return False
         else:
-          return False
+            return False
     return True
