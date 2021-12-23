@@ -20,7 +20,7 @@ def validUTF8(data):
                     continue
                 else:
                     return False
-            except BaseException:
+            except IndexError:
                 return False
         elif (Byte1 >> 4) == 14:
             try:
@@ -32,7 +32,7 @@ def validUTF8(data):
                     continue
                 else:
                     return False
-            except BaseException:
+            except IndexError:
                 return False
         elif (Byte1 >> 4) == 30:
             try:
@@ -46,6 +46,6 @@ def validUTF8(data):
                     continue
                 else:
                     return False
-            except BaseException:
+            except IndexError:
                 return False
     return True
