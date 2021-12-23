@@ -34,7 +34,7 @@ def validUTF8(data):
                     return False
             except IndexError:
                 return False
-        elif (Byte1 >> 4) == 30:
+        elif (Byte1 >> 3) == 30:
             try:
                 Byte2 = data[point + 1]
                 Byte3 = data[point + 2]
