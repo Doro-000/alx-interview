@@ -8,15 +8,17 @@ def validUTF8(data):
     """
     Implementation
     """
-    for point in range(len(data)):
+    point = 0
+    while point < len(data):
         Byte1 = data[point]
         if not Byte1 >> 7:
+            point += 1
             continue
         elif (Byte1 >> 5) == 6:
             try:
                 Byte2 = data[point + 1]
                 if (Byte2 >> 6) == 2:
-                    data.pop(point + 1)
+                    point += 2
                     continue
                 else:
                     return False
@@ -27,8 +29,7 @@ def validUTF8(data):
                 Byte2 = data[point + 1]
                 Byte3 = data[point + 2]
                 if (Byte2 >> 6) == (Byte3 >> 6) == 2:
-                    data.pop(point + 1)
-                    data.pop(point + 2)
+                    point += 3
                     continue
                 else:
                     return False
@@ -40,9 +41,7 @@ def validUTF8(data):
                 Byte3 = data[point + 2]
                 Byte4 = data[point + 3]
                 if (Byte2 >> 6) == (Byte3 >> 6) == (Byte4 >> 6) == 2:
-                    data.pop(point + 1)
-                    data.pop(point + 2)
-                    data.pop(point + 3)
+                    point += 4
                     continue
                 else:
                     return False
