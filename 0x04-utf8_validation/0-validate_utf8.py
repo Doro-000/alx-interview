@@ -10,7 +10,7 @@ def validUTF8(data):
     """
     point = 0
     while point < len(data):
-        Byte1 = data[point]
+        Byte1 = data[point] & 255
         if not Byte1 >> 7:
             point += 1
             continue
