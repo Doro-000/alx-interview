@@ -94,7 +94,7 @@ def print_grid(grid, N):
 
 
 for row in range(N):
-    grid = [[[(i, j), 0] for j in range(N)] for i in range(N)]
+    grid = [[[[i, j], 0] for j in range(N)] for i in range(N)]
     flag = 0
     grid = CrossOut(grid, [0, row], N)
     queens = N - 1
