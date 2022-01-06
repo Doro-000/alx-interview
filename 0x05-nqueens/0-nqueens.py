@@ -16,27 +16,30 @@ if N < 4:
     exit(1)
 
 
-def CrossOut(Grid, cell, dimension):
-    Grid[cell[0]][cell[1]][1] = 1
+def CrossOut(g, cell, dimension):
+    Grid = [x[:] for x in g]
+    Grid[cell[0]][cell[1]] = 1
+
     # Horizontal
-    for horizontal_cell in Grid[cell[0]]:
-        if horizontal_cell[1] == 0:
-            horizontal_cell[1] = -1
+    for i in range(dimension):
+        if Grid[cell[0]][i] != 1:
+            Grid[cell[0]][i] = -1
+
     # Vertical
-    for x in range(dimension):
-        vertical_cell = Grid[x][cell[1]]
-        if vertical_cell[1] == 0:
-            vertical_cell[1] = -1
+    for j in range(dimension):
+        if Grid[j][cell[1]] != 1:
+            Grid[j][cell[1]] = -1
+
     # Right Diagonal
     if cell[1] < dimension - 1:
         for x in range(1, dimension - cell[1]):
             try:
-                grid[cell[0] + x][cell[1] + x][1] = -1
+                Grid[cell[0] + x][cell[1] + x] = -1
             except BaseException:
                 pass
             try:
                 if cell[0] - x >= 0:
-                    grid[cell[0] - x][cell[1] + x][1] = -1
+                    Grid[cell[0] - x][cell[1] + x] = -1
             except BaseException:
                 pass
 
@@ -45,68 +48,49 @@ def CrossOut(Grid, cell, dimension):
         for x in range(1, cell[1] + 1):
             try:
                 if cell[1] - x >= 0:
-                    grid[cell[0] + x][cell[1] - x][1] = -1
+                    Grid[cell[0] + x][cell[1] - x] = -1
             except BaseException:
                 pass
             try:
                 if (cell[0] - x >= 0) and (cell[1] - x >= 0):
-                    grid[cell[0] - x][cell[1] - x][1] = -1
+                    Grid[cell[0] - x][cell[1] - x] = -1
             except BaseException:
                 pass
 
-    return grid
+    return Grid
 
 
-def GetNextSpot(grid):
-    for row in range(len(grid)):
-        for column in range(len(grid)):
-            cell = grid[row][column]
-            if cell[1] == 0:
-                return [row, column]
-    return None
-
-
-def CountSpots(grid):
+def CountSpots(grid, dimension):
     count = 0
-    for row in range(len(grid)):
-        for column in range(len(grid)):
-            cell = grid[row][column]
-            if cell[1] == 0:
+    for i in range(dimension):
+        for j in range(dimension):
+            if grid[i][j] == 0:
                 count += 1
     return count
 
 
-def print_answer(grid, N):
-    result = []
-    for row in range(N):
-        for column in range(N):
-            cell = grid[row][column]
-            if cell[1] == 1:
-                result.append(cell[0])
-    print(result)
+def get_answer(grid, dimension):
+    spots = []
+    for i in range(dimension):
+        for j in range(dimension):
+            if grid[i][j] == 1:
+                spots.append([i, j])
+    return spots
 
 
-def print_grid(grid, N):
-    for row in range(N):
-        for column in range(N):
-            print(grid[row][column], "\t", end="")
-        print()
+def solve(grid, row, col, dimension, queens):
+    attempt = CrossOut(grid, [row, col], dimension)
+    i = row + 1
+    queens -= 1
+    if i < dimension and CountSpots(grid, dimension) > queens:
+        for j in range(dimension):
+            if attempt[i][j] == 0:
+                solve(attempt, i, j, dimension, queens)
+    spots = get_answer(attempt, dimension)
+    if len(spots) == dimension:
+        print(spots)
 
 
-for row in range(N):
-    grid = [[[[i, j], 0] for j in range(N)] for i in range(N)]
-    flag = 0
-    grid = CrossOut(grid, [0, row], N)
-    queens = N - 1
-    while (queens):
-        if CountSpots(grid) < queens:
-            flag = 1
-            break
-        NextSpot = GetNextSpot(grid)
-        if not NextSpot:
-            flag = 1
-            break
-        grid = CrossOut(grid, NextSpot, N)
-        queens -= 1
-    if not flag:
-        print_answer(grid, N)
+initial_grid = [[0] * N for i in range(N)]
+for col in range(N):
+    solve(initial_grid, 0, col, N, N)
