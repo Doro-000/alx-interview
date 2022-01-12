@@ -18,9 +18,12 @@ function MakeRequest (url) {
 async function main () {
   const movie = await MakeRequest(BaseUrl + argv[2]);
   const characters = JSON.parse(movie).characters;
-  characters.forEach(function (element) {
-    MakeRequest(element).then(res => console.log(JSON.parse(res).name));
+  const CharactersPromises = characters.map((person) => {
+    return MakeRequest(person).then(res => JSON.parse(res).name);
   });
+
+  const People = await Promise.all(CharactersPromises);
+  People.forEach(person => console.log(person));
 }
 
 main();
