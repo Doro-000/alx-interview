@@ -4,9 +4,6 @@
 rotation(transpose) of a 2d matrix
 """
 
-from sqlalchemy import PrimaryKeyConstraint
-
-
 def rotate_2d_matrix(matrix):
     """
     implementation
