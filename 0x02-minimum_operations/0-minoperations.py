@@ -9,7 +9,7 @@ def minOperations(n):
     """
     implementation
     """
-    if not n:
+    if n <= 0:
         return 0
 
     operations, letters, clipboard = 0, 1, 0
