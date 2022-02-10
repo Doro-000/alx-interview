@@ -16,16 +16,17 @@ def isWinner(x, nums):
     """
     implementaion
     """
-    scores = [['maria', 0], ['ben', 0]]
+    scores = [['Maria', 0], ['Ben', 0]]
     turn = 0
     for i in range(x):
-        bucket = [num for num in range(1, nums[i] + 1)]
-        while (len(bucket) != 1):
-            bucket = list(filter(lambda x: x % bucket[1] != 0, bucket))
+        bucket = [num for num in range(2, nums[0] + 1)]
+        while (bucket):
+            bucket = list(filter(lambda x: x % bucket[0] != 0, bucket))
             turn ^= 1
         scores[turn ^ 1][1] += 1
         turn = 0
+        nums.append(nums.pop(0))
     scores = dict(scores)
-    if scores['maria'] == scores['ben']:
+    if scores['Maria'] == scores['Ben']:
         return None
-    return sorted(scores, key=lambda key: scores[key])[1]
+    return sorted(scores, key=lambda key: scores[key], reverse = True)[0]
