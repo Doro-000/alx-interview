@@ -29,4 +29,4 @@ def isWinner(x, nums):
     scores = dict(scores)
     if scores['Maria'] == scores['Ben']:
         return None
-    return sorted(scores, key=lambda key: scores[key], reverse = True)[0]
+    return sorted(scores, key=lambda key: scores[key], reverse=True)[0]
